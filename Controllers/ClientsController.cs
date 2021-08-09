@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI.DTOs;
 using WebAPI.Entities;
 using WebAPI.Repositories;
 
@@ -21,15 +22,15 @@ namespace WebAPI.Controllers
 
         // GET /clients
         [HttpGet]
-        public IEnumerable<Client> GetClients()
+        public IEnumerable<ClientDTO> GetClients()
         {
-            var clients = _repository.GetClients();
+            var clients = _repository.GetClients().Select(client => client.AsDTO());
             return clients;
         }
         
         // GET /client/{id}
         [HttpGet("{id}")]
-        public ActionResult<Client> GetClient( Guid id )
+        public ActionResult<ClientDTO> GetClient( Guid id )
         {
             var client = _repository.GetClient(id);
 
@@ -38,7 +39,7 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
 
-            return Ok(client);
+            return Ok(client.AsDTO());
         } 
     }
 }

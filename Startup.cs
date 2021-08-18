@@ -59,6 +59,7 @@ namespace WebAPI
         {
             if (env.IsDevelopment())
             {
+                app.UseHttpsRedirection();
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));

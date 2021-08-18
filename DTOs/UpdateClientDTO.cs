@@ -12,12 +12,6 @@ namespace WebAPI.DTOs
         public string Name { get; init; }
 
         [Required]
-        [Range(1, 1000)]
-        public decimal Price { get; init; }
-        [Required]
-        [Range( 1, 50 )]
-        public decimal HorseCount { get; init; }
-        [Required]
-        public string Location { get; init; }
+        public string Email { get; init; }
     }
 }

@@ -9,9 +9,7 @@ namespace WebAPI.DTOs
     {
         public Guid Id { get; init; }
         public string Name { get; init; }
-        public decimal Price { get; init; }
-        public decimal HorseCount { get; init; }
-        public string Location { get; init; }
+        public string Email { get; init; }
         public DateTimeOffset CreatedDate { get; init; }
         public DateTimeOffset LastVisitDate { get; init; }
     }

@@ -15,7 +15,7 @@ namespace WebAPI
             {
                 Id = client.Id,
                 Name = client.Name,
-                Price = client.Price,
+                Email = client.Email,
                 CreatedDate = client.CreatedDate,
             };
         }

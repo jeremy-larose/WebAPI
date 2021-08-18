@@ -11,38 +11,42 @@ namespace WebAPI.Repositories
         private readonly List<Client> _clients = new()
         {
             new Client()
-                { Id = Guid.NewGuid(), Name = "Doug LaRose", Price = 160, CreatedDate = DateTimeOffset.UtcNow },
+                { Id = Guid.NewGuid(), Name = "Doug LaRose", Email = "dlarose@gmail.com", CreatedDate = DateTimeOffset.UtcNow },
             new Client() 
-                { Id = Guid.NewGuid(), Name = "Kelly Blouw", Price = 80, CreatedDate = DateTimeOffset.UtcNow },
+                { Id = Guid.NewGuid(), Name = "Kelly Blouw", Email = "kblouw@gmail.com", CreatedDate = DateTimeOffset.UtcNow },
             new Client()
-                { Id = Guid.NewGuid(), Name = "Jason Gagnon", Price = 240, CreatedDate = DateTimeOffset.UtcNow }
+                { Id = Guid.NewGuid(), Name = "Jason Gagnon", Email = "jgagnon@gmail.com", CreatedDate = DateTimeOffset.UtcNow }
         };
 
-        public IEnumerable<Client> GetClients()
+        public async Task<IEnumerable<Client>> GetClientsAsync()
         {
-            return _clients;
+            return await Task.FromResult(_clients);
         }
 
-        public void CreateClient(Client client)
+        public async Task CreateClientAsync(Client client)
         {
-            _clients.Add( client );
+            _clients.Add(client);
+            await Task.CompletedTask;
         }
 
-        public void UpdateClient(Client client)
+        public async Task UpdateClientAsync(Client client)
         {
             var index = _clients.FindIndex(existingClient => existingClient.Id == client.Id);
             _clients[index] = client;
+            await Task.CompletedTask;
         }
 
-        public void DeleteClient(Guid id )
+        public async Task DeleteClientAsync(Guid id )
         {
             var index = _clients.FindIndex(existingClient => existingClient.Id == id);
             _clients.RemoveAt(index);
+            await Task.CompletedTask;
         }
 
-        public Client GetClient( Guid id )
+        public async Task<Client> GetClientAsync( Guid id )
         {
-            return _clients.FirstOrDefault(c => c.Id == id);
+            var client = _clients.SingleOrDefault(client => client.Id == id);
+            return await Task.FromResult(client);
         }
     }
 }

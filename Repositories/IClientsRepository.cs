@@ -8,11 +8,11 @@ namespace WebAPI.Repositories
 {
     public interface IClientsRepository
     {
-        Client GetClient(Guid id);
-        IEnumerable<Client> GetClients();
+        Task<Client> GetClientAsync(Guid id);
+        Task<IEnumerable<Client>> GetClientsAsync();
 
-        void CreateClient(Client client);
-        void UpdateClient(Client client);
-        void DeleteClient(Guid id );
+        Task CreateClientAsync(Client client);
+        Task UpdateClientAsync(Client client);
+        Task DeleteClientAsync(Guid id );
     }
 }

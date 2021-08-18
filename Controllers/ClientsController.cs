@@ -22,17 +22,18 @@ namespace WebAPI.Controllers
 
         // GET /clients
         [HttpGet]
-        public IEnumerable<ClientDTO> GetClients()
+        public async Task<IEnumerable<ClientDTO>> GetClientsAsync()
         {
-            var clients = _repository.GetClients().Select(client => client.AsDTO());
+            var clients = (await _repository.GetClientsAsync())
+                .Select(client => client.AsDTO());
             return clients;
         }
         
         // GET /client/{id}
         [HttpGet("{id}")]
-        public ActionResult<ClientDTO> GetClient( Guid id )
+        public async Task<ActionResult<ClientDTO>> GetClientAsync( Guid id )
         {
-            var client = _repository.GetClient(id);
+            var client = await _repository.GetClientAsync(id);
 
             if (client is null)
                 return NotFound();
@@ -42,26 +43,26 @@ namespace WebAPI.Controllers
 
         // POST /clients
         [HttpPost]
-        public ActionResult<ClientDTO> CreateClient(CreateClientDTO clientDTO)
+        public async Task<ActionResult<ClientDTO>> CreateClientAsync(CreateClientDTO clientDTO)
         {
             Client client = new()
             {
                 Id = Guid.NewGuid(),
                 Name = clientDTO.Name,
-                Price = clientDTO.Price,
+                Email = clientDTO.Email,
                 CreatedDate = DateTimeOffset.UtcNow
             };
 
-            _repository.CreateClient( client );
+            await _repository.CreateClientAsync( client );
 
-            return CreatedAtAction(nameof(GetClient), new { id = client.Id }, client.AsDTO());
+            return CreatedAtAction(nameof(GetClientAsync), new { id = client.Id }, client.AsDTO());
         }
 
         // PUT /items/{id}
         [HttpPut( "{id}" )]
-        public ActionResult UpdateClient(Guid id, UpdateClientDTO clientDTO)
+        public async Task<ActionResult> UpdateClientAsync(Guid id, UpdateClientDTO clientDTO)
         {
-            var existingClient = _repository.GetClient(id);
+            var existingClient = await _repository.GetClientAsync(id);
 
             if (existingClient is null)
                 return NotFound();
@@ -69,23 +70,23 @@ namespace WebAPI.Controllers
             Client updatedClient = existingClient with
             {
                 Name = clientDTO.Name,
-                Price = clientDTO.Price
+                Email= clientDTO.Email
             };
 
-            _repository.UpdateClient( updatedClient );
+            await _repository.UpdateClientAsync( updatedClient );
 
             return NoContent();
         }
 
         [HttpDelete( "{id}")]
-        public ActionResult Delete(Guid id)
+        public async Task<ActionResult> DeleteClientAsync(Guid id)
         {
-            var client = _repository.GetClient(id);
+            var client = _repository.GetClientAsync(id);
 
             if (client is null)
                 return NotFound();
 
-            _repository.DeleteClient(id);
+            await _repository.DeleteClientAsync(id);
             return NoContent();
         }
     }

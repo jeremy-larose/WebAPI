@@ -55,6 +55,7 @@ namespace WebAPI.Controllers
 
             await _repository.CreateClientAsync( client );
 
+            // ReSharper disable once Mvc.ActionNotResolved
             return CreatedAtAction(nameof(GetClientAsync), new { id = client.Id }, client.AsDTO());
         }
 

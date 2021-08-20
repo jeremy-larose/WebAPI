@@ -1,18 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
 using System.Text.Json;
-using System.Threading.Tasks;
+using ClarityMailLibrary;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Http;
 using MongoDB.Bson;
@@ -44,6 +40,8 @@ namespace WebAPI
                 return new MongoClient(mongoDbSettings.ConnectionString);
             });
             services.AddSingleton<IClientsRepository, MongoDbClientsRepository>();
+            services.AddSingleton<IEmailsRepository, MongoDbEmailsRepository>();
+            services.AddScoped<IClarityMail, ClarityMail>();
             services.AddControllers(options => { options.SuppressAsyncSuffixInActionNames = false; });
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" }); });
 

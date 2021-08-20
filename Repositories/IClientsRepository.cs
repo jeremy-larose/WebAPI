@@ -10,7 +10,6 @@ namespace WebAPI.Repositories
     {
         Task<Client> GetClientAsync(Guid id);
         Task<IEnumerable<Client>> GetClientsAsync();
-
         Task CreateClientAsync(Client client);
         Task UpdateClientAsync(Client client);
         Task DeleteClientAsync(Guid id );

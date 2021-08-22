@@ -119,6 +119,7 @@ namespace WebAPI.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine( $"Email failed to send. Exception: {ex}.");
+                // ReSharper disable once Mvc.ActionNotResolved
                 return CreatedAtAction(nameof(GetEmailAsync), new { id = email.Id }, email.AsDTO());
                 //return BadRequest();
             }

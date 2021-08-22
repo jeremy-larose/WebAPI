@@ -10,6 +10,9 @@ Usage:
 Currently set up to run on localhost, testing with Papercut: 
 
 GET /emails : returns all emails currently in database
+
 GET /emails/send/all : Sends all emails currently existing in database.
+
 GET /emails/send/{id} : Sends existing email {id}.
+
 POST /emails/send/new/{id} : Posts a new email to existing emails to be sent. 

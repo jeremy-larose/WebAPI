@@ -8,6 +8,7 @@ docker run -d --rm --name mongo -p 27017:27017 -v mongodbdata:/data/db -e MONGO_
 Attached to ClarityEmailerLibrary for Clarity Ventures API application.
 Usage:
 Currently set up to run on localhost, testing with Papercut: 
+
 GET /emails : returns all emails currently in database
 GET /emails/send/all : Sends all emails currently existing in database.
 GET /emails/send/{id} : Sends existing email {id}.

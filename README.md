@@ -1,18 +1,46 @@
 # WebAPI
 Web API for Clients Database, utilizes Docker, ClarityEmailLibrary, and Swagger
+Attached to ClarityEmailerLibrary for Clarity Ventures API application.
 
 Starting the docker container for MongoDB Database connectivity:
 
-docker run -d --rm --name mongo -p 27017:27017 -v mongodbdata:/data/db -e MONGO_INITDB_ROOT_USERNAME=mongoadmin -e MONGO_INITDB_ROOT_PASSWORD=Pass#word1 --network=net5api mongo
+----------------------------------------------------------------------------------------------------------------------------
+docker network create claritynetv1
+docker run -it --rm -p 8080:80 -e MongoDbSettings:Host=mongo -e MongoDbSettings:Password=Pass#word1 --network=claritynetv1 jeremylarose/webapi:v2
+----------------------------------------------------------------------------------------------------------------------------
 
-Attached to ClarityEmailerLibrary for Clarity Ventures API application.
+Starts the docker container on port 8080. Then start Papercut on port 35 for testing purposes.
+
 Usage:
-Currently set up to run on localhost, testing with Papercut: 
+Currently set up to run on localhost, testing with Papercut/Postman: 
 
-GET /emails : returns all emails currently in database
+GET /clients : returns all clients currently in database.
+GET /emails : returns all emails currently in database.
+POST /clients : Inserts a new client into the database.
+{
+  "name": "string",
+  "email": "string"
+}
+
+POST /emails: Inserts a new email into the database.
+{
+  "fromDisplayName": "string",
+  "toDisplayName": "string",
+  "fromAddress": "string",
+  "toAddress": "string",
+  "subject": "string",
+  "body": "string"
+}
 
 GET /emails/send/all : Sends all emails currently existing in database.
+GET /emails/send/{id} : Sends existing email at {id}.
 
-GET /emails/send/{id} : Sends existing email {id}.
-
-POST /emails/send/new/{id} : Posts a new email to existing emails to be sent. 
+POST /emails/send/new/{id} : Posts a new single email to be sent. 
+{
+  "fromDisplayName": "string",
+  "toDisplayName": "string",
+  "fromAddress": "string",
+  "toAddress": "string",
+  "subject": "string",
+  "body": "string"
+}

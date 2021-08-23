@@ -16,12 +16,12 @@ Currently set up to run on localhost, testing with Papercut/Postman:
 ```
 GET /clients : returns all clients currently in database.
 GET /emails : returns all emails currently in database.
+
 POST /clients : Inserts a new client into the database.
 {
   "name": "string",
   "email": "string"
 }
-
 POST /emails: Inserts a new email into the database.
 {
   "fromDisplayName": "string",
@@ -34,7 +34,6 @@ POST /emails: Inserts a new email into the database.
 
 GET /emails/send/all : Sends all emails currently existing in database.
 GET /emails/send/{id} : Sends existing email at {id}.
-
 POST /emails/send/new/{id} : Posts a new single email to be sent. 
 {
   "fromDisplayName": "string",
